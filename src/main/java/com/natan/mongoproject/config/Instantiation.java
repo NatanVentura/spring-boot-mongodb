@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.natan.mongoproject.domain.Post;
 import com.natan.mongoproject.domain.User;
 import com.natan.mongoproject.dto.AuthorDTO;
+import com.natan.mongoproject.dto.CommentDTO;
 import com.natan.mongoproject.repository.PostRepository;
 import com.natan.mongoproject.repository.UserRepository;
 
@@ -38,8 +39,13 @@ public class Instantiation implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		
-		Post post1 = new Post(null, sdf.parse("03/08/2020"),"Agua coca latao", "Mery mery pra gringo é mais caro",new AuthorDTO(bob));
-		Post post2 = new Post(null, sdf.parse("02/08/2020"),"Sensata", "Essa Manu pisa nesses machos escrotos",new AuthorDTO(maria));
+		Post post1 = new Post(null, sdf.parse("03/08/2020"),"Vou viajar", "Vou viajar pra São Paulo",new AuthorDTO(bob));
+		Post post2 = new Post(null, sdf.parse("02/08/2020"),"Calor", "Tá muito quente hoje",new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("Tô derretendo",sdf.parse("02/08/2020"),new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Melhor que o frio",sdf.parse("02/08/2020"),new AuthorDTO(bob));
+		
+		post2.getComments().addAll(Arrays.asList(c1,c2));
 		
 		postRepository.saveAll(Arrays.asList(post1,post2));
 		
